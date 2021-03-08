@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import uuid from "uuid";
 
-const useAxios = (url, extension) => {
+const useAxios = (url) => {
     const [cards, setCards] = useState([])
 
-    const addCard = async () => {
+    const addCard = async (extension) => {
+        if (extension) {
+            url = `${url}${extension}`
+        } 
         const response = await axios.get(url);
           setCards(cards => [...cards, { ...response.data, id: uuid() }]);
     }
